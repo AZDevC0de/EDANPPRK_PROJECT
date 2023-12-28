@@ -1,0 +1,33 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+  <h2>👩‍🎓 Szczegóły oceny</h2>
+
+
+  <h3>{{ education.name }}</h3>
+  <p><strong>Student:</strong> {{ education.student }}</p>
+  <p><strong>Przedmiot:</strong> {{ education.subject }}</p>
+  <p><strong>Ocena za przedmiot:</strong> {{ education.grade }}</p>
+  {% if user.is_employee %}
+  <!-- <a href="{% url 'education_update' pk=education.pk %}">Edytuj</a> -->
+  
+  <a href="{% url 'education_delete' pk=education.pk %}">Usuń</a>
+  {% endif %}
+
+
+  {% for education in educations %}
+  <hr>
+    <h3>{{ education.name }}</h3>
+    <p><strong>Efekt:</strong> {{ education.effect }}</p>
+    <p><strong>Ocena:</strong> {{ education.grade }}</p>
+    {% if user.is_employee %}
+    <a href="{% url 'education_update' pk=education.pk %}">Edytuj</a>
+    <a href="{% url 'education_delete' pk=education.pk %}">Usuń</a>
+    {% endif %}
+  {% endfor %}
+
+  {% endblock %}

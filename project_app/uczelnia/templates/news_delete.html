@@ -1,0 +1,12 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Usuwnanie wydarzenia</h2>
+  <p>Na pewno chcesz usunąć '{{ news.title }}'?</p>
+  <form method="post" action="{% url 'news_delete' pk=news.pk %}">
+    {% csrf_token %}
+    <button type="submit">Usuń</button>
+  </form>
+  <a href="{% url 'news_details' pk=news.pk %}">Anuluj</a>
+{% endblock %}

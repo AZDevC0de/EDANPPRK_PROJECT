@@ -1,0 +1,21 @@
+{% extends 'base.html' %} {% block content %}
+  <h2>Student</h2>
+  <h3>{{ customuser.first_name }} {{ customuser.last_name }}, Wydział: {{ customuser.department.name }}, Semestr: {{ customuser.semester }}</h3>
+
+  <h4>Przedmioty</h4>
+  {% for subject, details in subjects_details %}
+    <h3>{{ subject.name }}</h3>
+      <p><b>Punkty ECTS: {{ details.ects_points }}</b></p>
+    {% for effect, grade in details.effects_grades %}
+      {% if effect %}
+          <p><b>Efekt:</b> {{ effect }} - Ocena: {{ grade }}</p>
+      {% endif %}
+    {% endfor %}
+    <!-- Tu wyświetlamy średnią ocenę z przedmiotu -->
+      <p><em><u><b>Średnia ocena z przedmiotu: <strong>{{ details.average_grade }}</strong></b></u></em></p>
+    <hr>
+  {% endfor %}
+  <a href="{% url 'user_update' pk=customuser.pk %}">Edycja</a>
+  <br>
+  <a href="{% url 'user_pdf' pk=customuser.pk %}">Generuj dokument</a>
+{% endblock %}

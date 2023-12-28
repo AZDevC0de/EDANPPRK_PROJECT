@@ -1,0 +1,12 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Usuń przedmiot</h2>
+  <p>Na pewno chcesz usunąć przedmiot '{{ subject.name }}'?</p>
+  <form method="post" action="{% url 'subject_delete' pk=subject.pk %}">
+    {% csrf_token %}
+    <button type="submit">Usuń</button>
+  </form>
+  <a href="{% url 'subject_details' pk=subject.pk %}">Anuluj</a>
+{% endblock %}

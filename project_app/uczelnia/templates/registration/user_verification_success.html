@@ -1,0 +1,7 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container">
+    <h2>Konto użytkownika zostało zweryfikowane</h2>
+    <p>Użytkownik został pomyślnie zweryfikowany i może teraz korzystać ze wszystkich funkcji serwisu.</p>
+    <a href="{% url 'admin_home' %}" class="button">Powrót do panelu administratora</a>
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Szczegóły przedmiotu</h2>
+  <h3>{{ subject.name }}</h3>
+  <p><strong>Cel:</strong> {{ subject.purpose }}</p>
+  <p><strong>Efekt:</strong> {{ subject.effects }}</p>
+  <p><strong>Semestr:</strong> {{ subject.semester }}</p>
+  <p><strong>Punkty ECTS:</strong> {{ subject.ects_points }}</p>
+  <a href="{% url 'subject_update' pk=subject.pk %}">Edycja</a>
+  <a href="{% url 'subject_delete' pk=subject.pk %}">Usuń</a>
+{% endblock %}

@@ -1,0 +1,12 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>{% if form.instance.pk %}Edycja{% else %}Tworzenie{% endif %} przedmiotu</h2>
+  Wpisz nazwę przedmiotu, cel oraz efekty kształcenia
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Zapisz</button>
+  </form>
+{% endblock %}

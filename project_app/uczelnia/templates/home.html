@@ -1,0 +1,74 @@
+{% extends "base.html" %}{% block content %}
+<style>
+  .subject-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .subject-table th, .subject-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  .subject-table th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }
+  .subject-table tr:nth-child(even) {background-color: #f2f2f2;}
+  .subject-table tr:hover {background-color: #ddd;}
+</style>
+{% if user.is_authenticated %}
+  {% if not request.user.is_employee %}
+    <h3>📑 Przebieg studiów</h3>
+    {% if subjects_details %}
+      {% for subject, details in subjects_details.items %}
+        <table class="subject-table">
+          <thead>
+            <tr>
+              <th colspan="2">{{ subject.name }} - Punkty ECTS: {{ details.ects_points }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for effect_grade in details.effects_grades %}
+                 {% if effect_grade.effect %}
+              <tr>
+                <td>Efekt: {{ effect_grade.effect }}</td>
+                <td>Ocena: {{ effect_grade.grade }}</td>
+              </tr>
+                {% endif %}
+            {% endfor %}
+            <tr>
+              <td><strong>Średnia ocena z przedmiotu:</strong></td>
+              <td><strong>{{ details.average_grade }}</strong></td>
+            </tr>
+            
+          </tbody>
+        </table>
+        <br>
+      {% endfor %}
+    {% else %}
+      <p>Brak kursów.</p>
+    {% endif %}
+  {% else %}
+    <h3>Przedmioty, które prowadzisz</h3>
+    {% if subjects %}
+      <table class="subject-table">
+        <thead>
+          <tr>
+            <th>Nazwa przedmiotu</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for subject in subjects %}
+            <tr>
+              <td>{{ subject.name }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>Nie prowadzisz żadnych zajęć.</p>
+    {% endif %}
+  {% endif %}
+{% else %}
+  <p>Nie jesteś zalogowany.</p>
+{% endif %}
+{% endblock content %}

@@ -1,0 +1,14 @@
+
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Lista studentów wydziału {{user.department}}, którzy zapisali się na przedmioty prowadzone przez {{user.first_name}} {{user.last_name}}</h2>
+
+  <ul>
+    {% for u in customuser_list %}
+        <li><a href="{% url 'user_details' pk=u.pk %}">{{ u.first_name }} {{ u.last_name }}, {{u.department}}</a></li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}

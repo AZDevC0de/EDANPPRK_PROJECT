@@ -1,0 +1,16 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Wystaw ocenę</h2>
+     <!-- Wyświetlam informacje o edukacji, którą aktualizuje -->
+  Przedmiot: {{ education.subject }}<br>
+  Student: {{ education.student }}<br>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }} <!-- Automatycznie generowane pola formularza -->
+    <button type="submit">Zapisz</button>
+  </form>
+  <a href="{% url 'education_list' %}">Powrót do listy</a>
+{% endblock %}

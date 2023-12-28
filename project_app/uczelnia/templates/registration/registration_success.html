@@ -1,0 +1,10 @@
+{% extends 'base.html' %} {% block content %}
+  <div class="container">
+    <div class="registration-success">
+      <h1>Rejestracja zakończona sukcesem!</h1>
+      <p>Dziękujemy za rejestrację. Twoje konto oczekuje na weryfikację przez administratora.</p>
+      <p>Po zatwierdzeniu przez administratora będziesz mógł korzystać ze wszystkich funkcji serwisu.</p>
+      <a href="{% url 'home' %}" class="btn btn-primary">Powrót do strony głównej</a>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,27 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>✔ Zaliczenia</h2>
+    <!-- Informacje o użytkowniku, różne dla pracowników i studentów -->
+  {% if user.is_employee %}
+    Wydział {{ user.department.name }}, prowadzący {{ user.first_name }} {{ user.last_name }}
+  {% else %}
+    Wydział {{ user.department.name }}, student {{ user.first_name }} {{ user.last_name }}
+  {% endif %} 
+
+  <ul>
+    {% for e in educations %}
+        <!-- Linki do szczegółów edukacji, różne dla pracowników i studentów -->
+      {% if user.is_employee %}
+        <li><a href="{% url 'education_details' pk=e.pk %}">{{ e.student.first_name }} {{ e.student.last_name }} - {{ e.subject.name }} {{ e.effect }} - {{ e.grade }}</a></li>
+      {% else %}
+        <li><a href="{% url 'education_details' pk=e.pk %}"> {{ e.subject.name }} {{ e.effect }} - {{ e.grade }}</a></li>
+      {% endif %}      
+    {% endfor %}
+  </ul>
+    <!-- Link do zapisu na przedmiot dla studentów -->
+  {% if not user.is_employee %}
+  <a href="{% url 'education_create' %}">Zapisz się na przedmiot</a>
+  {% endif %}
+{% endblock %}

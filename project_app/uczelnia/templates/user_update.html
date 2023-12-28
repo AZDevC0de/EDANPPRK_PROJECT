@@ -1,0 +1,13 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Zmiana danych studenta</h2>
+  {{ customuser.first_name }} {{customuser.last_name}}
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Zapisz</button>
+  </form>
+  <a href="{% url 'user_list' %}">Powrót do listy</a>
+{% endblock %}

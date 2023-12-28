@@ -1,0 +1,11 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Wydarzenie</h2>
+  <h3>{{ news.title }}</h3>
+  <p><strong>Data:</strong> {{ news.date }}</p>
+  <p><strong>Treść:</strong> {{ news.body }}</p>
+  <a href="{% url 'news_update' pk=news.pk %}">Edycja</a>
+  <a href="{% url 'news_delete' pk=news.pk %}">Usuwanie</a>
+{% endblock %}

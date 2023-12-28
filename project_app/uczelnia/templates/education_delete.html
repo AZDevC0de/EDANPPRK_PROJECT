@@ -1,0 +1,14 @@
+
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Usuń kurs</h2>
+  <p>Na pewno chcesz usunąć studenta
+    <b>{{ education.student.first_name }} {{ education.student.last_name }}</b> na kursie <b>{{ education.subject.name }}</b>"?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Usuń</button>
+  </form>
+  <a href="{% url 'education_list' %}">Powrót</a>
+{% endblock %}

@@ -1,0 +1,27 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Kontakt z dziekanatem</h2>
+<p>Adres: Olsztyn</p>
+<p>Telefon: +48 88 222 11 11</p>
+
+<h2>Kontakt z administratorem</h2>
+<p>Adres: Olsztyn</p>
+<p>Telefon: +48 88 222 12 12</p>
+
+
+  <h2>Lista aktualności</h2>
+  <ul>
+    {% for n in news %}
+      <li><a href="{% url 'news_details' pk=n.pk %}">{{n.date|date:"M d, Y h:m:s" }} - {{ n.title }}</a></li>
+    {% endfor %}
+  </ul>
+  {% if user.is_authenticated %}
+  {% if user.is_employee %}
+  <a href="{% url 'news_create' %}">Dodaj aktualności</a>
+  {% endif %}
+  {% endif %}
+  
+{% endblock %}

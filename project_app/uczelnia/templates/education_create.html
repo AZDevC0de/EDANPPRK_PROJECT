@@ -1,0 +1,14 @@
+<!-- education_create.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Zapisz się na przedmiot</h2>
+  <h3>Przedmioty dostępne na semetrze {{user.semester}}, na wydziale {{user.department}}</h3>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Zapisz</button>
+  </form>
+  <a href="{% url 'education_list' %}">Powrót do listy</a>
+{% endblock %}

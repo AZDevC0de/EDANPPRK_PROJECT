@@ -1,0 +1,14 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>📚 Lista przedmiotów</h2>
+  <ul>
+    {% for subject in subjects %} <!--Pętla przechodząca przez każdy przedmiot w liście subjects. -->
+      <li><a href="{% url 'subject_details' pk=subject.pk %}">{{ subject.name }}, semestr: {{subject.semester}}, prowadzący: {{subject.teacher}}</a></li>
+    {% endfor %}
+  </ul>
+
+  <a href="{% url 'subject_create' %}">Dodaj przedmiot</a>
+
+{% endblock %}

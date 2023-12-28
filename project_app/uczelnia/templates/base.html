@@ -1,0 +1,65 @@
+<!-- templates/base.html -->
+{% load static %} <!--css -->
+<head>
+  <link rel="stylesheet" href="{% static 'style.css' %}" />
+</head>
+<body>
+  <center>
+    
+      <h1>Uniwersytet</h1>
+    
+      <header>
+          {% if user.is_authenticated %}
+          Zalogowany jako 
+        {% if user.is_superuser %}
+          <p>Administrator: {{ user.username }}</p>
+
+        {% elif user.is_employee %}
+          <p>pracownik wydziału {{user.department}}: {{ user.username }}, {{user.first_name}} {{user.last_name}}</p>
+        {% else %} 
+          <p>student wydziału {{user.department}}: {{ user.username }}, {{user.first_name}} {{user.last_name}}, semestr {{user.semester}}</p>
+        {% endif %} 
+        
+        <img src="{{user.avatar.url}}" width="50px"> <!-- Linki dostron w zależności od statusu użytkownika -->
+<br>  <br>    
+      <a href="{% url 'logout' %}">Wyloguj</a>
+      |
+      <a href="{% url 'edit_profile' %}">Profil</a>
+      |
+        {% if user.is_superuser %}
+          <p>Administrator: {{ user.username }}</p>
+            <a href="{% url 'admin_home' %}">Panel Administratora</a> |
+          <a href="{% url 'verification_list' %}">Weryfikacja użytkowników</a>
+
+
+        {% elif user.is_employee %}
+              <a href="{% url 'user_list' %}">Lista studentów</a>
+               |
+              <a href="{% url 'subject_list' %}">Administracja przedmiotami</a>
+              |
+              <a href="{% url 'education_list' %}">Wpisywanie ocen</a>
+        {% else %} 
+              <a href="{% url 'education_list' %}">Nauka</a>
+        {% endif %} 
+
+      {% else %}
+      <p>Nie jesteś zalogowany</p>
+      <a href="{% url 'login' %}">Logowanie</a>|
+      <a href="{% url 'signup' %}">Rejestracja</a>
+      {% endif %} |
+   
+      <a href="{% url 'news_list' %}">Aktualności</a>
+      |
+      <a href="{% url 'home' %}">🏠 Strona główna</a>
+      
+
+    </header>
+  </center>
+  <main class="center">{% block content %} {% endblock %}</main>
+  <!--służy jako miejsce, do którego inne szablony HTML mogą wstawiać swoją treść. Jeśli inne szablony rozszerzają base.html-->
+  <center>
+    <footer>
+      <p>&copy; {{ year }} Uniwersytet</p>
+    </footer>
+  </center>
+</body>
