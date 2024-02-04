@@ -2,7 +2,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>Usuwnanie wydarzenia</h2>
+  <h2>Usuwanie wydarzenia</h2>
   <p>Na pewno chcesz usunąć '{{ news.title }}'?</p>
   <form method="post" action="{% url 'news_delete' pk=news.pk %}">
     {% csrf_token %}

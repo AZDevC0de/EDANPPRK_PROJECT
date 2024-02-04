@@ -17,16 +17,16 @@ class Department(models.Model):
 
 class CustomUser(AbstractUser):
     """ Model użytkownika (studenta lub pracownika)"""
-    objects = CustomUserManager()
-    fist_name = models.CharField(max_length=100, blank=False, null=False)
+    #objects = CustomUserManager()
+    first_name = models.CharField(max_length=100, blank=False, null=False)
     last_name = models.CharField(max_length=100, blank=False, null=False)
     avatar = models.ImageField(default='default.png', upload_to='profile_pics')
     birthday = models.DateField(default=date(2000, 1, 1))
-    phone = models.CharField(max_length=9, blank=True)
-    address = models.CharField(max_length=100, blank=True)
+    phone = models.CharField(max_length=9, blank=False)
+    address = models.CharField(max_length=100, blank=False)
     semester = models.CharField(max_length=100, default="2023/2024")  # semestr na którym jest student
     department = models.ForeignKey(Department, on_delete=models.CASCADE,
-                                   null=True)  # w jakim wydziale studiuje student lub zatrudniony jest pracownik
+                                   null=False)  # w jakim wydziale studiuje student lub zatrudniony jest pracownik
     is_employee = models.BooleanField(default=False)  # czy użytkownik jest pracownikiem
     is_verified = models.BooleanField(default=False) #veryfikacja przez admina
 
@@ -77,8 +77,8 @@ class Education(models.Model):
 #https://docs.djangoproject.com/en/3.2/ref/models/instances/#get-absolute-url
 # Metody get_absolute_url są  przydatne,
 # ponieważ definiują, jak można uzyskać URL do szczegółowego widoku obiektu.
-# To jest zgodne z wzorcem projektowym DRY (Don't Repeat Yourself)
-# ponieważ URL jest zdefiniowany w jednym miejscu i może być używany w różnych częściach aplikacji.
+# To jest zgodne  DRY (Don't Repeat Yourself)
+# bo URL jest zdefiniowany w jednym miejscu a mogę dać go w różnych miejsach
 class News(models.Model):
     """ Aktualności uniwersyteckie"""
     title = models.CharField(max_length=200)

@@ -8,7 +8,8 @@
         <th>Nazwa użytkownika</th>
         <th>Imię</th>
           <th>Nazwisko</th>
-        <th>Akcje</th>
+        <th>Rola</th>
+
       </tr>
     </thead>
     <tbody>
@@ -17,6 +18,13 @@
           <td>{{ user.username }}</td>
           <td>{{ user.first_name }}</td>
           <td>{{user.last_name}}</td>
+           <td>
+    {% if user.is_employee %}
+      Nauczyciel
+    {% else %}
+      Student
+    {% endif %}
+  </td>
 
           <td>
 

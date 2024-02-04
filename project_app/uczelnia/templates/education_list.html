@@ -14,9 +14,9 @@
     {% for e in educations %}
         <!-- Linki do szczegółów edukacji, różne dla pracowników i studentów -->
       {% if user.is_employee %}
-        <li><a href="{% url 'education_details' pk=e.pk %}">{{ e.student.first_name }} {{ e.student.last_name }} - {{ e.subject.name }} {{ e.effect }} - {{ e.grade }}</a></li>
+        <li><a href="{% url 'education_details' pk=e.pk %}">{{ e.student.first_name }} {{ e.student.last_name }} - {{ e.subject.name }} {{ e.effect }} - {{ e.grade|floatformat:2 }}</a></li>
       {% else %}
-        <li><a href="{% url 'education_details' pk=e.pk %}"> {{ e.subject.name }} {{ e.effect }} - {{ e.grade }}</a></li>
+        <li><a href="{% url 'education_details' pk=e.pk %}"> {{ e.subject.name }} {{ e.effect }} - {{ e.grade|floatformat:2 }}</a></li>
       {% endif %}      
     {% endfor %}
   </ul>

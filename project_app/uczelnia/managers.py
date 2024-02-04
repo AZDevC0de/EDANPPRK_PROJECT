@@ -1,6 +1,6 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils.translation import gettext_lazy as _
-#zmieniam domyślny sposób uwierzytelniania z wykorzystaniem nazwy użytkownika na uwierzytelnianie przy pomocy adresu e-mail
+#zmieniam domyślny sposób uwierzytelniania z wykorzystaniem nazwy użytkownika
 
 class CustomUserManager(BaseUserManager):
     """

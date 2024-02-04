@@ -5,13 +5,16 @@
 
 
 
-  <h2>👩‍🎓 Szczegóły oceny</h2>
+
 
 
   <h3>{{ education.name }}</h3>
   <p><strong>Student:</strong> {{ education.student }}</p>
+    <h2>Szczegóły przedmiotu</h2>
   <p><strong>Przedmiot:</strong> {{ education.subject }}</p>
-  <p><strong>Ocena za przedmiot:</strong> {{ education.grade }}</p>
+<p><strong>Cel kształcenia:</strong> {{ purpose }}</p>
+     <h2>👩‍🎓 Szczegóły oceny</h2>
+  <p><strong>Ocena za przedmiot:</strong> {{ rounded_average }}</p>
   {% if user.is_employee %}
   <!-- <a href="{% url 'education_update' pk=education.pk %}">Edytuj</a> -->
   
@@ -26,7 +29,7 @@
     <p><strong>Ocena:</strong> {{ education.grade }}</p>
     {% if user.is_employee %}
     <a href="{% url 'education_update' pk=education.pk %}">Edytuj</a>
-    <a href="{% url 'education_delete' pk=education.pk %}">Usuń</a>
+
     {% endif %}
   {% endfor %}
 

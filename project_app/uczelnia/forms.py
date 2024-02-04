@@ -72,7 +72,7 @@ class SignupForm(UserCreationForm):
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nazwa użytkownika'}),
         label='Nazwa użytkownika')
 
-    email = forms.EmailField(max_length=100, help_text='',
+    email = forms.EmailField(help_text='',
                              widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Email'}), )
     first_name = forms.CharField(max_length=100, required=True, help_text='',
                                  widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Imię'}),
@@ -102,7 +102,7 @@ class SignupForm(UserCreationForm):
                                 widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Hasło'}),
                                 label='Powtórz hasło')
 
-    # department field as combo hihi
+    # hihi
 
     class Meta:
         model = CustomUser

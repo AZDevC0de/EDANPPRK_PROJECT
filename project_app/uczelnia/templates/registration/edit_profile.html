@@ -1,17 +1,12 @@
 
-<!-- ->
-{% extends 'base.html' %}  <!-wzór ogolny z base->
+
+{% extends 'base.html' %}
 
 {% block content %}
   <h2>Edycja profilu</h2>
   <form method="post" enctype="multipart/form-data">
-   <!-To jest jakby ramka na mojej stronie,
-  w którą mogę umieścić różne pola
-  (jak imię, email itd.), aby użytkownik mógł w nie wpisać informacje.
-   enctype="multipart/form-data" to jest specjalne do przesyłania danych (gdy form ma pliki do wysłania np foto->
     {% csrf_token %}
-    {{ form.as_p }} <!- biore formularz, który stworzyłam w widoku editprofiel i pokazuje wszystkie jego pola tu na stronie
-    i as_p wyświetlam jako paragraf->
+    {{ form.as_p }}
     <button type="submit">Zapisz</button>
   </form>
 {% endblock %}

@@ -159,6 +159,14 @@ class EducationDetailsView(DetailView):
         education = self.get_object()
         student = education.student
         context['educations'] = Education.objects.filter(subject=education.subject, student=student).exclude(effect="")
+        context['purpose'] = education.subject.purpose
+        grades = [education.grade for education in context['educations']]
+        if grades:
+            average_grade = sum(grades) / len(grades)
+            # Zaokrąglij średnią do najbliższej połówki
+            context['rounded_average'] = round_half_up(average_grade)
+        else:
+            context['rounded_average'] = None
         return context
 
 

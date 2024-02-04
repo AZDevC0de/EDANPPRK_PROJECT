@@ -6,7 +6,7 @@ body {
     color: #000000;
     text-decoration: none;
   }
-  
+
   .tag {
     display: inline-block;
     border-radius: 4px;
@@ -15,10 +15,10 @@ body {
   .center {
     margin: auto;
     width: 40%;
-  
+
     padding: 10px;
   }
-  
+
   header {
     margin-left: auto;
     margin-right: auto;
@@ -27,17 +27,17 @@ body {
     border: #000000 1px solid;
     padding: 10px;
   }
-  
+
   main {
     margin-left: auto;
     margin-right: auto;
   }
-  
+
   footer {
     margin-left: auto;
     margin-right: auto;
   }
-  
+
   .centered-content {
     display: flex;
     justify-content: center;
