@@ -62,7 +62,7 @@ class Education(models.Model):
         (4.5, '4.5'),
         (5.0, '5.0'),
     ]
-    student = models.ForeignKey(CustomUser, on_delete=models.CASCADE)  # którego studenta dotyczy ocena
+    student = models.ForeignKey(CustomUser, on_delete=models.CASCADE) # którego studenta dotyczy ocena
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)  # z jakiego przedmiotu jest ocena
     effect = models.CharField(max_length=140, default="")
     grade = models.FloatField(choices=GRADE_CHOICES, default=2.0)
