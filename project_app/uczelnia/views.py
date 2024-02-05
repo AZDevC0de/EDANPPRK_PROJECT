@@ -24,6 +24,8 @@ from django.shortcuts import redirect
 def round_half_up(n):
     # Zaokrąglam do najbliższej połówki
     return round(n * 2) / 2
+#na korzyść studenta
+
 
 
 
