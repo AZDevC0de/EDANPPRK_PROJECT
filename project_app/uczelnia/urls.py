@@ -24,6 +24,8 @@ from .views import SubjectListView, SubjectDetailsView, SubjectCreateView, Subje
 from .views import logout_view, NewsListView, NewsDetailsView, NewsCreateView, NewsUpdateView, NewsDeleteView,UserListView,UserDetailsView,UserUpdateView,UserDeleteView,UserPdfView
 from .views import verify_user
 from .views import UserVerificationListView
+from .views import generate_pdf
+
 # wzorce adresów url
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -48,6 +50,9 @@ urlpatterns = [
     path('users/<int:pk>/', UserDetailsView.as_view(), name='user_details'),
     path('users/<int:pk>/update/', UserUpdateView.as_view(), name='user_update'),
     path('user_pdf/<int:pk>/', UserPdfView.as_view(), name='user_pdf'),
+    path('pdf/<int:pk>/', views.generate_pdf, name='pdf'),
+
+
 
     path('news/', NewsListView.as_view(), name='news_list'),
     path('news/<int:pk>/', NewsDetailsView.as_view(), name='news_details'),

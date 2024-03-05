@@ -1,32 +1,44 @@
-<!-- ukrywa elementy z klasą no-print podczas drukowania strony -->
-<style>
-  @media print {
-    .no-print, .no-print * {
-      display: none !important;
-    }
-  }
-</style>
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Dane studenta</title>
+     <style>
 
+
+        @media print {
+            .no-print, .no-print * {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
 <div style="text-align: center;">
-{% block content %}
-  <h1>Dane studenta</h1>
-    <h1><em>{{ customuser.first_name }} {{customuser.last_name}}, Wydział: {{customuser.department}}</em></h1>
+    {% block content %}
+    <h1>Dane studenta</h1>
+    <h1><em>{{ customuser.first_name }} {{ customuser.last_name }}, Wydział: {{ customuser.department }}</em></h1>
 
-  <h1><em>Przedmioty</em></h1>
-  <h2><em>Semestr: {{ customuser.semester }}</em></h2>
-  <hr>
- {% for details in subjects_details %}
-  <h3>{{ details.subject.name }} - Punkty ECTS: {{ details.ects_points }}</h3>
-  {% for effect_grade in details.effects_grades %}
-    {% if effect_grade.effect %}
-      <p>Efekt: {{ effect_grade.effect }} - Ocena: {{ effect_grade.grade }}</p>
-    {% endif %}
-  {% endfor %}
-     <h3><em><u>Ogólna ocena z przedmiotu: {{ details.average_grade }}</u></em></h3>
-  <hr>
-{% endfor %}
+    <h1><em>Przedmioty</em></h1>
+    <h2><em>Semestr: {{ customuser.semester }}</em></h2>
+    <hr>
+    {% for details in subjects_details %}
+        <h3>{{ details.subject.name }} - Punkty ECTS: {{ details.ects_points }}</h3>
+        {% for effect_grade in details.effects_grades %}
+            {% if effect_grade.effect %}
+                <p>Efekt: {{ effect_grade.effect }} - Ocena: {{ effect_grade.grade }}</p>
+            {% endif %}
+        {% endfor %}
+        <h3><em><u>Ogólna ocena z przedmiotu: {{ details.average_grade }}</u></em></h3>
+        <hr>
+    {% endfor %}
 
+    <button class='no-print' onclick="window.print();">Drukuj</button>
+    <button><a href="{% url 'pdf' customuser.id %}" >Generuj PDF</a></button>
 
-<button class='no-print' onclick="window.print();">Drukuj</button>
-{% endblock %}
+    {% endblock %}
 </div>
+</body>
+</html>

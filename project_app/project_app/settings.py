@@ -25,6 +25,8 @@ SECRET_KEY = 'django-insecure-&rvm$3s==e6nh7#q1h(co!o-0hykihfup3-0*g(8#tjt!hs&r9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
+
 ALLOWED_HOSTS = ["*"]
 AUTH_USER_MODEL = "uczelnia.CustomUser"
 LOGIN_REDIRECT_URL = "user_redirect"
@@ -33,6 +35,7 @@ import os
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Application definition
 
 INSTALLED_APPS = [
@@ -42,7 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'uczelnia.apps.UczelniaConfig'
+    'uczelnia.apps.UczelniaConfig',
+    'easy_pdf'
 ]
 AUTHENTICATION_BACKENDS = [
 

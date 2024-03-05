@@ -20,7 +20,22 @@ from .forms import SignupForm, SubjectUpdateForm, SubjectCreateForm, NewsUpdateF
 from django.db.models import Avg
 from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import redirect
-
+from django.http import HttpResponse
+from fpdf import FPDF
+from django.http import HttpResponse
+from reportlab.pdfgen import canvas
+import pdfkit
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from django.http import HttpResponse
+from .models import CustomUser, Education
+from django.shortcuts import render
+from django.http import HttpResponse
+from xhtml2pdf import pisa
+import os
+from django.conf import settings
 def round_half_up(n):
     # Zaokrąglam do najbliższej połówki
     return round(n * 2) / 2
@@ -268,6 +283,7 @@ class UserPdfView(DetailView):
     template_name = 'user_pdf.html'
     context_object_name = 'customuser'
 
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.get_object()
@@ -301,9 +317,68 @@ class UserPdfView(DetailView):
             for subject, details in subjects_details.items()
         ]
 
+
         return context
 
-#umożliwiam użytkownikom edycję określonych pól (tutaj tylko semester) w ich profilach CustomUser.
+def link_callback(uri, rel):
+    if uri.startswith(settings.STATIC_URL):
+        path = os.path.join(settings.STATIC_ROOT, uri.replace(settings.STATIC_URL, ""))
+    elif uri.startswith(settings.MEDIA_URL):
+        path = os.path.join(settings.MEDIA_ROOT, uri.replace(settings.MEDIA_URL, ""))
+    else:
+        return uri  # handle absolute uri (e.g. http://some.tld/foo.png)
+
+    if not os.path.isfile(path):
+        raise Exception('media URI must start with %s or %s' % (settings.STATIC_URL, settings.MEDIA_URL))
+    return path
+def generate_pdf(request, pk):
+    user = get_object_or_404(CustomUser, pk=pk)
+    educations = Education.objects.filter(student=user)
+    subjects_details = {}
+
+    for education in educations:
+        subject = education.subject
+        if subject not in subjects_details:
+            subjects_details[subject] = {
+                'effects_grades': [],
+                'ects_points': subject.ects_points
+            }
+        subjects_details[subject]['effects_grades'].append({
+            'effect': education.effect,
+            'grade': education.grade
+        })
+
+    for subject, details in subjects_details.items():
+        grades = [eg['grade'] for eg in details['effects_grades']]
+        average_grade = sum(grades) / len(grades) if grades else 0
+        details['average_grade'] = round_half_up(average_grade)
+
+    context_subjects_details = [
+        {
+            'subject': subject,
+            'ects_points': details['ects_points'],
+            'effects_grades': details['effects_grades'],
+            'average_grade': details['average_grade']
+        }
+        for subject, details in subjects_details.items()
+    ]
+
+    context = {
+        'customuser': user,
+        'subjects_details': context_subjects_details,
+    }
+
+    html = render_to_string('user_pdf.html', context)
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="{user.last_name}_details.pdf"'
+    pisa_status = pisa.CreatePDF(
+        html.encode("UTF-8"), dest=response, encoding='UTF-8',
+        link_callback=link_callback
+    )
+
+    if pisa_status.err:
+        return HttpResponse('Wystąpiły błędy przy tworzeniu PDF: %s' % pisa_status.err)
+    return response
 class UserUpdateView(UpdateView):
     model = CustomUser
     template_name = 'user_update.html'
